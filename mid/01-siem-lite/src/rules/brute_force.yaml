@@ -1,0 +1,24 @@
+name: brute_force_ssh
+description: Detect SSH brute-force attempts — multiple failed logins from the same source IP
+severity: high
+enabled: true
+
+detection:
+  # Match events where authentication failed via SSH
+  filter:
+    event.category: authentication
+    event.action: failed
+    event.provider: sshd
+  # Group matching events by source IP
+  group_by: source.ip
+  # Trigger if 5 or more matching events occur within 120 seconds
+  threshold: 5
+  time_window: 120
+
+alert:
+  title: "SSH brute-force detected from {source.ip}"
+  description: "{count} failed SSH login attempts from {source.ip} in {time_window}s"
+  tags:
+    - brute-force
+    - ssh
+    - t1110

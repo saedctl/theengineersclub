@@ -1,0 +1,47 @@
+name: brute_force_response
+description: Respond to brute-force login attempts by blocking the source and notifying the team
+alert_type: brute_force
+severity: high
+
+steps:
+  - action: block_ip
+    description: Block the attacking IP at the firewall
+    params:
+      ip: "{{ source_ip }}"
+      duration: 3600
+      reason: "Brute-force attack detected"
+    on_failure: continue
+
+  - action: collect_logs
+    description: Collect auth logs from the targeted host for forensic analysis
+    params:
+      log_sources:
+        - /var/log/auth.log
+        - /var/log/syslog
+      time_range: "1h"
+      output_dir: "/tmp/ir/{{ incident_id }}"
+    on_failure: continue
+
+  - action: revoke_token
+    description: Revoke active sessions for any compromised accounts
+    params:
+      scope: "user_sessions"
+      filter: "source_ip={{ source_ip }}"
+    on_failure: abort
+
+  - action: notify
+    description: Alert the security team via webhook
+    params:
+      channel: security-alerts
+      message: "Brute-force response executed for {{ source_ip }}. IP blocked for 1h. Logs collected."
+      urgency: high
+
+  - action: create_ticket
+    description: Create an incident tracking ticket
+    params:
+      title: "Brute-force attack from {{ source_ip }}"
+      priority: high
+      assignee: security-oncall
+      labels:
+        - incident
+        - brute-force
