@@ -8,29 +8,29 @@ Built for the community at [theengineers.club](https://theengineers.club).
 
 | Level | Directory | Who it's for | Projects |
 |-------|-----------|--------------|----------|
-| Entry | [`entry/`](entry/) | Getting started with Python + security fundamentals | 5 |
-| Mid | [`mid/`](mid/) | Integrating tools, building real pipelines | 5 |
-| Senior | [`senior/`](senior/) | Architecture-level systems and advanced tooling | 5 |
+| Entry | [`projects/entry/`](projects/entry/) | Getting started with Python + security fundamentals | 5 |
+| Mid | [`projects/mid/`](projects/mid/) | Integrating tools, building real pipelines | 5 |
+| Senior | [`projects/senior/`](projects/senior/) | Architecture-level systems and advanced tooling | 5 |
 
 ## Project Index
 
 | # | Level | Project | Description |
 |---|-------|---------|-------------|
-| 1 | Entry | [Log Sentinel](entry/01-log-sentinel/) | Parse auth/syslog/nginx logs, detect brute-force and sudo abuse with threshold engine |
-| 2 | Entry | [File Integrity Monitor](entry/02-fim/) | Walk directories, SHA-256 hash files, store baselines, detect changes |
-| 3 | Entry | [CVE CLI](entry/03-cve-cli/) | Query the NVD API for CVEs with keyword search, severity filtering, and rich output |
-| 4 | Entry | [Port Scanner](entry/04-portscan/) | Multi-threaded TCP connect scanner with banner grabbing and service fingerprinting |
-| 5 | Entry | [Password Auditor](entry/05-passaudit/) | Entropy scoring, pattern detection, and HIBP breach checking for passwords |
-| 6 | Mid | [SIEM Lite](mid/01-siem-lite/) | Log ingestion pipeline with ECS normalisation, YAML correlation rules, and SQLite backend |
-| 7 | Mid | [Threat Feed](mid/02-threatfeed/) | Aggregate IOCs from OTX, AbuseIPDB, URLhaus, Feodo Tracker with FastAPI query endpoint |
-| 8 | Mid | [Vulnerability Pipeline](mid/03-vulnpipe/) | Wrap Nmap/Trivy/Grype, normalise findings, deduplicate, and generate Jinja2 reports |
-| 9 | Mid | [IR Playbook Engine](mid/04-ir-playbook/) | YAML-driven incident response automation with step executors and audit logging |
-| 10 | Mid | [Secret Scanner](mid/05-secretscan/) | Detect leaked secrets in code and git history using regex and entropy analysis |
-| 11 | Senior | [Detection Engine](senior/01-detect-engine/) | Sigma rule compiler targeting SQL, Elasticsearch DSL, and Splunk SPL with test harness |
-| 12 | Senior | [EDR Agent](senior/02-edr-agent/) | Host-based agent monitoring processes, network, and file events with YARA matching |
-| 13 | Senior | [Adversary Simulator](senior/03-advsim/) | MITRE ATT&CK-mapped TTP execution with scenario runner and detection coverage reporter |
-| 14 | Senior | [AI Threat Hunter](senior/04-ai-hunter/) | LLM-assisted threat hunting — natural language to SQL over DuckDB event store via Claude |
-| 15 | Senior | [GRC Audit](senior/05-grc-audit/) | Infrastructure compliance scanner for CIS, NIST, and SOC 2 with gap reporting |
+| 1 | Entry | [Log Sentinel](projects/entry/01-log-sentinel/) | Parse auth/syslog/nginx logs, detect brute-force and sudo abuse with threshold engine |
+| 2 | Entry | [File Integrity Monitor](projects/entry/02-fim/) | Walk directories, SHA-256 hash files, store baselines, detect changes |
+| 3 | Entry | [CVE CLI](projects/entry/03-cve-cli/) | Query the NVD API for CVEs with keyword search, severity filtering, and rich output |
+| 4 | Entry | [Port Scanner](projects/entry/04-portscan/) | Multi-threaded TCP connect scanner with banner grabbing and service fingerprinting |
+| 5 | Entry | [Password Auditor](projects/entry/05-passaudit/) | Entropy scoring, pattern detection, and HIBP breach checking for passwords |
+| 6 | Mid | [SIEM Lite](projects/mid/01-siem-lite/) | Log ingestion pipeline with ECS normalisation, YAML correlation rules, and SQLite backend |
+| 7 | Mid | [Threat Feed](projects/mid/02-threatfeed/) | Aggregate IOCs from OTX, AbuseIPDB, URLhaus, Feodo Tracker with FastAPI query endpoint |
+| 8 | Mid | [Vulnerability Pipeline](projects/mid/03-vulnpipe/) | Wrap Nmap/Trivy/Grype, normalise findings, deduplicate, and generate Jinja2 reports |
+| 9 | Mid | [IR Playbook Engine](projects/mid/04-ir-playbook/) | YAML-driven incident response automation with step executors and audit logging |
+| 10 | Mid | [Secret Scanner](projects/mid/05-secretscan/) | Detect leaked secrets in code and git history using regex and entropy analysis |
+| 11 | Senior | [Detection Engine](projects/senior/01-detect-engine/) | Sigma rule compiler targeting SQL, Elasticsearch DSL, and Splunk SPL with test harness |
+| 12 | Senior | [EDR Agent](projects/senior/02-edr-agent/) | Host-based agent monitoring processes, network, and file events with YARA matching |
+| 13 | Senior | [Adversary Simulator](projects/senior/03-advsim/) | MITRE ATT&CK-mapped TTP execution with scenario runner and detection coverage reporter |
+| 14 | Senior | [AI Threat Hunter](projects/senior/04-ai-hunter/) | LLM-assisted threat hunting — natural language to SQL over DuckDB event store via Claude |
+| 15 | Senior | [GRC Audit](projects/senior/05-grc-audit/) | Infrastructure compliance scanner for CIS, NIST, and SOC 2 with gap reporting |
 
 ## Getting started
 
@@ -42,7 +42,7 @@ git clone https://github.com/saedctl/theengineersclub.git
 cd theengineersclub
 
 # Pick a project
-cd entry/01-log-sentinel
+cd projects/entry/01-log-sentinel
 
 # Install dependencies
 make install
@@ -60,7 +60,7 @@ make test
 Every project follows the same layout:
 
 ```
-[level]/[nn]-[project-name]/
+projects/[level]/[nn]-[project-name]/
 ├── README.md          # What to build, why it matters, how to run it
 ├── src/
 │   ├── __init__.py
