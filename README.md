@@ -2,7 +2,7 @@
 
 Hands-on security engineering projects for people building careers in cybersecurity. 15 projects across three levels, from log parsing to adversary simulation.
 
-Built for the community at [theengineers.club](https://theengineers.club).
+Built for the community at [theengineers.club](https://skool.com/tec).
 
 ## Levels
 
