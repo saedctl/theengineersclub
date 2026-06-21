@@ -1,0 +1,33 @@
+title: SSH Brute Force Attempt
+id: 5e3d3e12-7a4b-4c3d-9f1e-2b4a6c8d0e1f
+status: test
+level: high
+description: Detects multiple failed SSH login attempts indicating a brute-force attack
+author: The Engineers Club
+date: 2024/01/01
+
+logsource:
+    category: authentication
+    product: linux
+    service: sshd
+
+detection:
+    selection:
+        EventType: authentication_failure
+        ServiceName: sshd
+    condition: selection | count(SourceIP) by SourceIP > 5
+
+fields:
+    - SourceIP
+    - TargetUser
+    - EventType
+    - ServiceName
+
+falsepositives:
+    - Legitimate users mistyping passwords multiple times
+    - Automated systems with expired credentials
+
+tags:
+    - attack.credential_access
+    - attack.t1110.001
+    - attack.t1110.003

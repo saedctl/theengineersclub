@@ -1,0 +1,61 @@
+framework: cis-aws
+section: "1 - Identity and Access Management"
+
+controls:
+  - id: CIS-AWS-1.4
+    title: Ensure no root account access key exists
+    description: >
+      The root account is the most privileged user in an AWS account. AWS Access Keys
+      provide programmatic access to a given AWS account. It is recommended that all
+      access keys associated with the root account be removed.
+    severity: critical
+    framework_refs:
+      - CIS AWS Foundations Benchmark v1.5.0 - 1.4
+      - NIST 800-53 AC-6
+    check_type: aws_iam
+    check_params:
+      resource: root_account
+      condition: access_keys_active == 0
+    remediation: >
+      Delete all access keys associated with the root account via the IAM console
+      or CLI: aws iam delete-access-key --access-key-id <key-id>
+
+  - id: CIS-AWS-1.7
+    title: Eliminate use of the root user for administrative and daily tasks
+    description: >
+      With the creation of an AWS account, a root user is created that cannot be
+      disabled or deleted. That user has unrestricted access to and control over all
+      resources in the AWS account. It is recommended that the use of this account
+      be avoided for everyday tasks.
+    severity: high
+    framework_refs:
+      - CIS AWS Foundations Benchmark v1.5.0 - 1.7
+      - NIST 800-53 AC-2(1)
+    check_type: aws_iam
+    check_params:
+      resource: root_account
+      condition: last_used_days_ago > 90
+    remediation: >
+      Create IAM users for everyday administrative tasks and enable MFA on the root
+      account. Only use root for tasks that specifically require root credentials.
+
+  - id: CIS-AWS-1.14
+    title: Ensure hardware MFA is enabled for the root user
+    description: >
+      The root user account is the most privileged user in an AWS account. MFA adds
+      an extra layer of protection on top of a user name and password. With MFA enabled,
+      when a user signs in to an AWS website, they will be prompted for their user name
+      and password as well as for an authentication code from their MFA device. For
+      Level 2, it is recommended that the root user be protected with a hardware MFA device.
+    severity: critical
+    framework_refs:
+      - CIS AWS Foundations Benchmark v1.5.0 - 1.14
+      - NIST 800-53 IA-2(1)
+      - SOC 2 CC6.1
+    check_type: aws_iam
+    check_params:
+      resource: root_account
+      condition: hardware_mfa_enabled == true
+    remediation: >
+      Enable a hardware MFA device for the root user via the IAM console:
+      Security credentials > Multi-factor authentication > Activate MFA > Hardware MFA device.
